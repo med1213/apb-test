@@ -1,0 +1,17 @@
+/* src/app/dashboard/dashboard.component.scss */
+
+/* A soft custom shadow to imitate the screenshot's soft cards */
+.shadow-soft {
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}
+
+/* If you prefer to use this class in template: */
+.card-rounded {
+  border-radius: 16px;
+}
+
+/* small utility to make dashed placeholder styling consistent */
+.placeholder {
+  border: 1px dashed #eef2f7;
+  border-radius: 12px;
+}

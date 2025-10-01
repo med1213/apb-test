@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@use "tailwindcss";
+
+/* styles.scss or component.scss */
+.menu-link {
+  @apply flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition;
+}
+.shadow-soft {
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.06);
+}

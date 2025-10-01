@@ -1,0 +1,228 @@
+<div class="flex min-h-screen bg-gray-50">
+  <!-- Sidebar -->
+  <aside class="w-56 bg-white shadow-md flex flex-col p-2">
+    <div class="p-6 font-bold text-xl text-indigo-600">Dashboard</div>
+    <nav class="flex-1">
+      <ul class="space-y-2">
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg bg-indigo-600 text-white font-medium"
+          >
+            <i class="pi pi-th-large"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-chart-line"></i> Stock
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-shopping-cart"></i> Orders
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-box"></i> Products
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-chart-bar"></i> Sales Report
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-envelope"></i> Messages
+          </a>
+        </li>
+        <li>
+          <a
+            class="flex items-center gap-3 px-4 py-2 rounded-lg hover:bg-indigo-50 text-slate-600"
+          >
+            <i class="pi pi-cog"></i> Settings
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main class="flex-1 p-6 lg:p-10 space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <h1 class="text-2xl lg:text-3xl font-semibold text-slate-900">
+        Dashboard
+      </h1>
+      <div class="flex items-center gap-4">
+        <div class="text-sm text-slate-600 hidden sm:block">Eng (US)</div>
+        <div class="h-10 w-10 rounded-full overflow-hidden">
+          <img src="user.jpg" alt="avatar" class="object-cover h-full w-full" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Sales -->
+    <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h2 class="text-lg font-semibold text-slate-900">Today's Sales</h2>
+          <p class="text-sm text-slate-400">Sales Summary</p>
+        </div>
+        <button
+          class="text-sm px-3 py-1 border rounded-md bg-white hover:bg-slate-50"
+        >
+          Export
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <ng-container *ngFor="let c of salesCards">
+          <div
+            class="bg-white border rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col gap-3"
+          >
+            <div class="flex justify-between items-center">
+              <div>
+                <div class="text-2xl font-bold text-slate-900">
+                  {{ c.value }}
+                </div>
+                <div class="text-sm text-slate-500">{{ c.title }}</div>
+              </div>
+              <div
+                class="w-12 h-12 flex items-center justify-center rounded-full"
+                [ngClass]="c.iconBg"
+              >
+                <i [class]="c.icon" class="text-lg" [ngClass]="c.iconColor"></i>
+              </div>
+            </div>
+            <div class="text-xs text-slate-400">{{ c.subtitle }}</div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">Total Revenue</h3>
+        <div class="h-auto">
+          <p-chart type="bar" [data]="data" [options]="options"></p-chart>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">
+          Customer Satisfaction
+        </h3>
+        <div class="h-auto">
+          <p-chart
+            type="line"
+            [data]="dataLine"
+            [options]="optionsLine"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">Top Products</h3>
+        <table class="w-full text-sm">
+          <thead class="text-slate-400 text-left">
+            <tr>
+              <th class="pb-3">#</th>
+              <th class="pb-3">Name</th>
+              <th class="pb-3">Popularity</th>
+              <th class="pb-3 text-right">Sales</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y">
+            <tr *ngFor="let p of topProducts" class="align-top">
+              <td class="py-3 text-slate-600">{{ p.id }}</td>
+              <td class="py-3 text-black">{{ p.name }}</td>
+              <td class="py-3">
+                <div
+                  class="w-full bg-slate-100 rounded-full h-2 overflow-hidden"
+                >
+                  <div
+                    class="h-2 rounded-full"
+                    [style.width.%]="p.popularity"
+                    style="background: linear-gradient(90deg, #6366f1, #22d3ee)"
+                  ></div>
+                </div>
+              </td>
+              <td class="py-3 text-right text-slate-500">
+                {{ p.popularity }}%
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">
+          Sales Mapping by Country
+        </h3>
+        <div class="h-auto">
+          <p-chart type="bar" [data]="dataH" [options]="optionsH"></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column Widgets -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">
+          Visitor Insights
+        </h3>
+        <div class="h-auto">
+          <p-chart
+            type="pie"
+            [data]="dataPie"
+            [options]="optionsPie"
+            class="w-full md:w-[30rem]"
+          />
+        </div>
+      </div>
+
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">
+          Volume vs Service Level
+        </h3>
+        <div class="h-auto">
+          <p-chart
+            type="bar"
+            [data]="dataStackBar"
+            [options]="optionsStackBar"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-1 gap-6">
+      <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition">
+        <h3 class="text-md font-medium text-slate-800 mb-4">
+          Target vs Reality
+        </h3>
+        <div class="h-auto">
+          <p-chart
+            type="line"
+            [data]="dataStyle"
+            [options]="optionsStyle"
+          ></p-chart>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
